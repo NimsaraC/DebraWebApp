@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebraWebApp", "DebraWebApp\DebraWebApp.csproj", "{EE67D879-D3F1-4E59-B2B3-20EB870B2E52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE67D879-D3F1-4E59-B2B3-20EB870B2E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE67D879-D3F1-4E59-B2B3-20EB870B2E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE67D879-D3F1-4E59-B2B3-20EB870B2E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE67D879-D3F1-4E59-B2B3-20EB870B2E52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BDCE76A7-A7F3-4C83-8A65-43303EBC4135}
+	EndGlobalSection
+EndGlobal
