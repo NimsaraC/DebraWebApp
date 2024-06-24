@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DebraWebApp.Models.Sell>
+
+<h1>Sells</h1>
+
+<form asp-action="Index" method="get">
+    <div>
+        <label for="partnerId">Select Partner:</label>
+        <select id="partnerId" name="partnerId" onchange="this.form.submit()">
+            <option value="">-- Select Partner --</option>
+            @foreach (var partner in ViewBag.Partners)
+            {
+                <option value="@partner.Id">@partner.Name</option>
+            }
+        </select>
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sell ID</th>
+                <th>Quantity Sold</th>
+                <th>Total Amount</th>
+                <th>Commission</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sell in Model)
+            {
+                <tr>
+                    <td>@sell.SellId</td>
+                    <td>@sell.QuantitySold</td>
+                    <td>@sell.TotalAmount.ToString("C")</td>
+                    <td>@sell.Commission.ToString("C")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@sell.SellId">Details</a> |
+                        <a asp-action="Edit" asp-route-id="@sell.SellId">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@sell.SellId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No sales available for the selected partner.</p>
+}

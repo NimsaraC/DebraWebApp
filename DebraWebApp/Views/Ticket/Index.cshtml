@@ -1,0 +1,25 @@
+﻿@model IEnumerable<DebraWebApp.Models.Ticket>
+
+<h2>Tickets</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ticket Number</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@ticket.TicketId</td>
+                <td>@ticket.Price</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@ticket.TicketId">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

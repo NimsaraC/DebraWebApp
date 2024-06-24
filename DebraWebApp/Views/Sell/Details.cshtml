@@ -1,0 +1,22 @@
+﻿@model DebraWebApp.Models.Sell
+
+<h1>Sell Details</h1>
+
+<div>
+    <h4>Sell ID: @Model.SellId</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Quantity Sold:</dt>
+        <dd class="col-sm-10">@Model.QuantitySold</dd>
+
+        <dt class="col-sm-2">Total Amount:</dt>
+        <dd class="col-sm-10">@Model.TotalAmount.ToString("C")</dd>
+
+        <dt class="col-sm-2">Commission:</dt>
+        <dd class="col-sm-10">@Model.Commission.ToString("C")</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

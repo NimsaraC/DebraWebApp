@@ -1,0 +1,31 @@
+﻿@model IEnumerable<DebraWebApp.Models.Partner>
+
+<h2>Partners</h2>
+
+<p>
+    <a asp-action="Create">Register New Partner</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var partner in Model)
+        {
+            <tr>
+                <td>@partner.Name</td>
+                <td>@partner.Email</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@partner.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@partner.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@partner.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
