@@ -1,0 +1,25 @@
+﻿@model IEnumerable<DebraWebApp.Models.Sell>
+
+<h2>Sales By Partner</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sell ID</th>
+            <th>Quantity Sold</th>
+            <th>Total Amount</th>
+            <th>Commission</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sell in Model)
+        {
+            <tr>
+                <td>@sell.SaleId</td>
+                <td>@sell.QuantitySold</td>
+                <td>@sell.TotalAmount.ToString("C")</td>
+                <td>@sell.Commission.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

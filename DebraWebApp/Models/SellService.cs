@@ -24,7 +24,6 @@ namespace DebraWebApp.Models
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError($"Error fetching sales for partner {partnerId}. Status Code: {response.StatusCode}");
-                // Optionally, throw an exception or handle the error as needed
                 return new List<Sell>();
             }
             return await response.Content.ReadFromJsonAsync<IEnumerable<Sell>>();

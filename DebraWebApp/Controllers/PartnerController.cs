@@ -1,9 +1,8 @@
-﻿// Controllers/PartnerController.cs
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using DebraWebApp.Models;
 using DebraWebApp.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace DebraWebApp.Controllers
 {
@@ -32,13 +31,23 @@ namespace DebraWebApp.Controllers
             return View(partner);
         }
 
-        [HttpGet]
+        public async Task<IActionResult> DetailsUI(string email)
+        {
+            var partner = await _partnerService.GetPartnerAsync(email);
+            if (partner == null)
+            {
+                return NotFound();
+            }
+            return View(partner);
+        }
+
+        [HttpGet("Partner/create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("Partner/create")]
         public async Task<IActionResult> Create(Partner partner)
         {
             if (ModelState.IsValid)
@@ -49,7 +58,7 @@ namespace DebraWebApp.Controllers
             return View(partner);
         }
 
-        [HttpGet]
+        [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
             var partner = await _partnerService.GetPartnerAsync(id);
@@ -60,7 +69,7 @@ namespace DebraWebApp.Controllers
             return View(partner);
         }
 
-        [HttpPost]
+        [HttpPost("edit/{id}")]
         public async Task<IActionResult> Edit(int id, Partner partner)
         {
             if (id != partner.Id || !ModelState.IsValid)

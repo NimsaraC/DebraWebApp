@@ -77,7 +77,7 @@ namespace DebraWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Sell sell)
         {
-            if (id != sell.SellId || !ModelState.IsValid)
+            if (id != sell.SaleId || !ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -86,7 +86,7 @@ namespace DebraWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
+        [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var sell = await _sellService.GetSellAsync(id);
@@ -104,12 +104,12 @@ namespace DebraWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet("partner/{partnerId}")]
-        public async Task<IActionResult> SalesByPartner(int partnerId)
-        {
-            var sales = await _sellService.GetSalesByPartnerAsync(partnerId);
-            return View(sales);
-        }
+        //[HttpGet("partner/{partnerId}")]
+        //public async Task<IActionResult> SalesByPartner(int partnerId)
+        //{
+        //    var sales = await _sellService.GetSalesByPartnerAsync(partnerId);
+        //    return View(sales);
+        //}
 
         [HttpGet("event/{eventId}")]
         public async Task<IActionResult> SalesByEvent(int eventId)

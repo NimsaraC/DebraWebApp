@@ -28,22 +28,16 @@
                 <th>Quantity Sold</th>
                 <th>Total Amount</th>
                 <th>Commission</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var sell in Model)
             {
                 <tr>
-                    <td>@sell.SellId</td>
+                    <td>@sell.SaleId</td>
                     <td>@sell.QuantitySold</td>
                     <td>@sell.TotalAmount.ToString("C")</td>
                     <td>@sell.Commission.ToString("C")</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@sell.SellId">Details</a> |
-                        <a asp-action="Edit" asp-route-id="@sell.SellId">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@sell.SellId">Delete</a>
-                    </td>
                 </tr>
             }
         </tbody>

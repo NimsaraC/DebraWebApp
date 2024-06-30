@@ -28,6 +28,12 @@ namespace DebraWebApp.Services
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<Partner>();
         }
+        public async Task<Partner> GetPartnerAsync(string email)
+        {
+            var response = await _httpClient.GetAsync($"api/partners/email");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<Partner>();
+        }
 
         public async Task<Partner> RegisterPartnerAsync(Partner partner)
         {

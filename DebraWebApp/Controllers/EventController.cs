@@ -1,8 +1,11 @@
 ﻿using DebraWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace DebraWebApp.Controllers
 {
+    [Route("events")]
     public class EventController : Controller
     {
         private readonly EventService _eventService;
@@ -12,12 +15,14 @@ namespace DebraWebApp.Controllers
             _eventService = eventService;
         }
 
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
             var events = await _eventService.GetAllEventsAsync();
             return View(events);
         }
 
+        [HttpGet("{id}")]
         public async Task<IActionResult> Details(int id)
         {
             var eventModel = await _eventService.GetEventAsync(id);
@@ -26,15 +31,16 @@ namespace DebraWebApp.Controllers
                 return NotFound();
             }
             return View(eventModel);
+
         }
 
-        [HttpGet]
+        [HttpGet("create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create(Event eventModel)
         {
             if (ModelState.IsValid)
@@ -45,7 +51,7 @@ namespace DebraWebApp.Controllers
             return View(eventModel);
         }
 
-        [HttpGet]
+        [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
             var eventModel = await _eventService.GetEventAsync(id);
@@ -56,7 +62,7 @@ namespace DebraWebApp.Controllers
             return View(eventModel);
         }
 
-        [HttpPost]
+        [HttpPost("edit/{id}")]
         public async Task<IActionResult> Edit(int id, Event eventModel)
         {
             if (id != eventModel.EventId || !ModelState.IsValid)
@@ -68,7 +74,7 @@ namespace DebraWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
+        [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var eventModel = await _eventService.GetEventAsync(id);
@@ -79,7 +85,7 @@ namespace DebraWebApp.Controllers
             return View(eventModel);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("delete/{id}"), ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _eventService.DeleteEventAsync(id);

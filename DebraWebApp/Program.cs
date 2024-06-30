@@ -1,5 +1,7 @@
 using DebraWebApp.Models;
 using DebraWebApp.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +38,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseAuthentication(); // Ensure this line is present
 app.UseRouting();
 
 app.UseAuthorization();
