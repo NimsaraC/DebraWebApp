@@ -17,6 +17,11 @@ namespace DebraWebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            return View();
+            
+        }
+        public async Task<IActionResult> PartnerAdmin()
+        {
             var partners = await _partnerService.GetPartnersAsync();
             return View(partners);
         }

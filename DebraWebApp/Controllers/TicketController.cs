@@ -1,4 +1,5 @@
 ﻿using DebraWebApp.Models;
+using DebraWebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DebraWebApp.Controllers
@@ -12,9 +13,15 @@ namespace DebraWebApp.Controllers
             _ticketService = ticketService;
         }
 
-        public async Task<IActionResult> Index(int eventId)
+        public async Task<IActionResult> Index2(int eventId)
         {
             var tickets = await _ticketService.GetTicketsByEvent(eventId);
+            return View(tickets);
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var tickets = await _ticketService.GetAllTickets();
             return View(tickets);
         }
 

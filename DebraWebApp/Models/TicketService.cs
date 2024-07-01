@@ -1,4 +1,6 @@
-﻿namespace DebraWebApp.Models
+﻿using System.Collections.Generic;
+
+namespace DebraWebApp.Models
 {
     public class TicketService
     {
@@ -21,6 +23,13 @@
             var response = await _httpClient.GetAsync($"api/ticket/{id}");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<Ticket>();
+        }
+
+        public async Task<IEnumerable<Ticket>> GetAllTickets()
+        {
+            var response = await _httpClient.GetAsync("api/ticket");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<IEnumerable<Ticket>>();
         }
 
         public async Task<Ticket> SetTicketDetails(CreateTicketDTO createTicketDTO)

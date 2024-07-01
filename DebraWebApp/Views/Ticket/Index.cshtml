@@ -1,29 +1,79 @@
-﻿@model IEnumerable<DebraWebApp.Models.Ticket>
+﻿@{
+    ViewData["Title"] = "Ticket Management Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<DebraWebApp.Models.Ticket>
 
-<h2>Tickets</h2>
+<div class="container">
+    <h1>Ticket Management Dashboard</h1>
 
-<p>
-    <a asp-action="Create">Create new Ticket</a>
-</p>
+    <div class="row">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Ticket Number</th>
-            <th>Price</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var ticket in Model)
-        {
-            <tr>
-                <td>@ticket.TicketId</td>
-                <td>@ticket.Price</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@ticket.TicketId">Details</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <div class="col-md-12">
+            <section class="card">
+                <h2>Ticket Sales</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Ticket Type</th>
+                            <th>Quantity </th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var tickets in Model)
+                        {
+                            <tr>
+                                <td>@tickets.EventId</td>
+                                <td>@tickets.Category</td>
+                                <td>@tickets.Quantity</td>
+                                <td>@tickets.Price</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="card">
+                <h2>Attendees</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Event ID</th>
+                            <th>Ticket Type</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var tickets in Model)
+                        {
+                            <tr>
+                                <td>@tickets.EventId</td>
+                                <td>@tickets.Category</td>
+                                <td>@tickets.Quantity</td>
+                                <td>@tickets.Price</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Partner Actions">
+                                        <a asp-action="Edit" asp-route-id="@tickets.TicketId" class="btn btn-warning">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@tickets.TicketId" class="btn btn-danger"
+                                           onclick="return confirm('Are you sure you want to delete this Ticket?')">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        
+                    </tbody>
+                    <tr><a asp-action="Create" class="btn btn-primary">Add New Ticket</a></tr>
+                </table>
+            </section>
+        </div>
+    </div>
+
+</div>

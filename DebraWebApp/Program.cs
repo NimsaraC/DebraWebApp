@@ -8,11 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
 builder.Services.AddHttpClient<PartnerService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:44317/");
 });
-
+builder.Services.AddHttpClient<HomeService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:44317/");
+});
 builder.Services.AddHttpClient<TicketService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:44317/");

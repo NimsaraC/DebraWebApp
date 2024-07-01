@@ -1,31 +1,80 @@
-﻿@model IEnumerable<DebraWebApp.Models.Partner>
+﻿@{
+    ViewData["Title"] = "Partner Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<h2>Partners</h2>
 
-<p>
-    <a asp-action="Create" >Register New Partner</a>
-</p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Manage</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var partner in Model)
-        {
-            <tr>
-                <td>@partner.Name</td>
-                <td>@partner.Email</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@partner.Id">Details</a> |
-                    <a asp-action="Edit" asp-route-id="@partner.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@partner.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container">
+    <h1>Welcome to Your Partner Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Events You Manage</h2>
+                <ul>
+                    <li><a href="#">Event 1</a></li>
+                    <li><a href="#">Event 2</a></li>
+                    <li><a href="#">Event 3</a></li>
+                    <!-- List of events dynamically generated -->
+                </ul>
+            </section>
+        </div>
+
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Recent Ticket Sales</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Tickets Sold</th>
+                            <th>Earnings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Event 1</td>
+                            <td>50</td>
+                            <td>$500</td>
+                        </tr>
+                        <tr>
+                            <td>Event 2</td>
+                            <td>30</td>
+                            <td>$300</td>
+                        </tr>
+                        <!-- Recent sales data dynamically generated -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Profile Information</h2>
+                <ul>
+                    <li><strong>Name:</strong> John Doe</li>
+                    <li><strong>Email:</strong> john.doe@example.com</li>
+                    <li><strong>Company:</strong> Your Company Name</li>
+                    <!-- Display partner's profile information -->
+                </ul>
+                <a href="#" class="btn btn-primary">Edit Profile</a>
+            </section>
+        </div>
+
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Upcoming Events</h2>
+                <ul>
+                    <li><a href="#">Event 1</a> - July 15, 2024</li>
+                    <li><a href="#">Event 2</a> - August 5, 2024</li>
+                    <li><a href="#">Event 3</a> - September 10, 2024</li>
+                    <!-- List of upcoming events dynamically generated -->
+                </ul>
+            </section>
+        </div>
+    </div>
+
+</div>

@@ -18,15 +18,15 @@ namespace DebraWebApp.Models
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Sell>> GetSalesByPartnerAsync(int partnerId)
+        public async Task<IEnumerable<Admin>> GetSalesByPartnerAsync(int partnerId)
         {
             var response = await _httpClient.GetAsync($"api/sell/partner/{partnerId}");
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError($"Error fetching sales for partner {partnerId}. Status Code: {response.StatusCode}");
-                return new List<Sell>();
+                return new List<Admin>();
             }
-            return await response.Content.ReadFromJsonAsync<IEnumerable<Sell>>();
+            return await response.Content.ReadFromJsonAsync<IEnumerable<Admin>>();
         }
 
         public async Task<IEnumerable<Partner>> GetPartnersAsync()
@@ -34,6 +34,13 @@ namespace DebraWebApp.Models
             var response = await _httpClient.GetAsync("api/partners");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<IEnumerable<Partner>>();
+        }
+
+        public async Task<IEnumerable<Admin>> GetAllSellAsync()
+        {
+            var response = await _httpClient.GetAsync("api/sell");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<IEnumerable<Admin>>();
         }
 
         public async Task<Sell> GetSellAsync(int id)
@@ -90,18 +97,18 @@ namespace DebraWebApp.Models
             }
         }
 
-        public async Task<IEnumerable<Sell>> GetSalesByEventAsync(int eventId)
+        public async Task<IEnumerable<Admin>> GetSalesByEventAsync(int eventId)
         {
             try
             {
                 var response = await _httpClient.GetAsync($"api/sell/event/{eventId}");
                 response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromJsonAsync<IEnumerable<Sell>>();
+                return await response.Content.ReadFromJsonAsync<IEnumerable<Admin>>();
             }
             catch (HttpRequestException e)
             {
                 _logger.LogError(e, "Error fetching sales by event ID {EventId}", eventId);
-                return new List<Sell>();
+                return new List<Admin>();
             }
         }
 

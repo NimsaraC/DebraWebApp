@@ -1,0 +1,164 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<DebraWebApp.Models.Admin>
+
+<div class="container">
+    <h1>Welcome to Admin Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Event Management</h2>
+                <ul>
+                    <li><a asp-controller="Event" asp-action="Index">Manage Events</a></li>
+                    <li><a asp-controller="Event" asp-action="Create">Create New Event</a></li>
+                    <li><a asp-controller="Ticket" asp-action="Index">Ticket Management</a></li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Partner Management</h2>
+                <ul>
+                    <li><a asp-controller="Partner" asp-action="PartnerAdmin">View Partners</a></li>
+                    <li><a href="#">Add New Partner</a></li>
+                    <li><a href="#">Commission Rates</a></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Ticket Sales</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sele Id</th>
+                            <th>Ticket Id</th>
+                            <th>Tickets Sold</th>
+                            <th>Total</th>
+                            <th>Earnings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var sell in ViewBag.Sell)
+                        {
+                            <tr>
+                                <td>@sell.SaleId</td>
+                                <td>@sell.TicketId</td>
+                                <td>@sell.QuantitySold</td>
+                                <td>@sell.TotalAmount.ToString("C")</td>
+                                <td>@sell.Commission.ToString("C")</td>
+                            </tr>
+                        }
+                        <!-- Recent sales data dynamically generated -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Earnings by Event</h2>
+                <form asp-action="Admin" method="get">
+                    <div>
+                        <label for="eventID">Select Partner:</label>
+                        <select id="eventID" name="eventID" onchange="this.form.submit()">
+                            <option value="">-- Select Event --</option>
+                            @foreach (var events in ViewBag.Events)
+                            {
+                                <option value="@events.EventId">@events.Location</option>
+                            }
+                        </select>
+                    </div>
+                </form>
+                @if (Model != null && Model.Any())
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sell ID</th>
+                                <th>Quantity Sold</th>
+                                <th>Total Amount</th>
+                                <th>Commission</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var sell in Model)
+                            {
+                                <tr>
+                                    <td>@sell.SaleId</td>
+                                    <td>@sell.QuantitySold</td>
+                                    <td>@sell.TotalAmount.ToString("C")</td>
+                                    <td>@sell.Commission.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </section>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Earnings by Partners</h2>
+                <form asp-action="Admin" method="get">
+                    <div>
+                        <label for="partnerId">Select Partner:</label>
+                        <select id="partnerId" name="partnerId" onchange="this.form.submit()">
+                            <option value="">-- Select Partner --</option>
+                            @foreach (var partner in ViewBag.Partners)
+                            {
+                                <option value="@partner.Id">@partner.Name</option>
+                            }
+                        </select>
+                    </div>
+                </form>
+                @if (Model != null && Model.Any())
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sell ID</th>
+                                <th>Quantity Sold</th>
+                                <th>Total Amount</th>
+                                <th>Commission</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var sell in Model)
+                            {
+                                <tr>
+                                    <td>@sell.SaleId</td>
+                                    <td>@sell.QuantitySold</td>
+                                    <td>@sell.TotalAmount.ToString("C")</td>
+                                    <td>@sell.Commission.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                
+            </section>
+        </div>
+
+        <div class="col-md-6">
+            <section class="card">
+                <h2>System Settings</h2>
+                <ul>
+                    <li><a href="#">Manage Users</a></li>
+                    <li><a href="#">Email Notifications</a></li>
+                    <li><a href="#">System Logs</a></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+</div>
