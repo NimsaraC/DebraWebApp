@@ -11,14 +11,16 @@ namespace DebraWebApp.Controllers
         private readonly SellService _sellService;
         private readonly EventService _eventService;
         private readonly HomeService _homeService;
+        private readonly PartnerService _partnerService;
 
         public HomeController(
-            ILogger<HomeController> logger, SellService sellService, EventService eventService, HomeService homeService)
+            ILogger<HomeController> logger, SellService sellService, EventService eventService, HomeService homeService, PartnerService partnerService)
         {
             _logger = logger;
             _sellService = sellService;
             _eventService = eventService;
             _homeService = homeService;
+            _partnerService = partnerService;
         }
 
         public IActionResult Index()
@@ -110,5 +112,26 @@ namespace DebraWebApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [HttpGet]
+        public IActionResult AdminLogin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AdminLogin(AdminLogin request)
+        {
+            if (ModelState.IsValid)
+            {
+                var (isSuccess, errorMessage) = await _homeService.AuthenticatePartnerAsync(request.Username, request.Password);
+                if (isSuccess)
+                {
+                    return RedirectToAction("Admin");
+                }
+                ViewBag.ErrorMessage = errorMessage ?? "Invalid login attempt.";
+            }
+            return View(request);
+        }
+
+
     }
 }
