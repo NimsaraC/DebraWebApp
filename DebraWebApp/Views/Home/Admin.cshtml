@@ -24,7 +24,7 @@
                 <h2>Partner Management</h2>
                 <ul>
                     <li><a asp-controller="Partner" asp-action="PartnerAdmin">View Partners</a></li>
-                    <li><a href="#">Add New Partner</a></li>
+                    <li><a asp-controller="Partner" asp-action="Create">Add new Partner</a></li>
                     <li><a href="#">Commission Rates</a></li>
                 </ul>
             </section>
@@ -38,7 +38,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Sele Id</th>
+                            <th>Sale Id</th>
                             <th>Ticket Id</th>
                             <th>Tickets Sold</th>
                             <th>Total</th>
@@ -56,7 +56,6 @@
                                 <td>@sell.Commission.ToString("C")</td>
                             </tr>
                         }
-                        <!-- Recent sales data dynamically generated -->
                     </tbody>
                 </table>
             </section>
@@ -65,10 +64,10 @@
         <div class="col-md-6">
             <section class="card">
                 <h2>Earnings by Event</h2>
-                <form asp-action="Admin" method="get">
+                <form id="eventForm">
                     <div>
-                        <label for="eventID">Select Partner:</label>
-                        <select id="eventID" name="eventID" onchange="this.form.submit()">
+                        <label for="eventID">Select Event:</label>
+                        <select id="eventID" name="eventID">
                             <option value="">-- Select Event --</option>
                             @foreach (var events in ViewBag.Events)
                             {
@@ -77,30 +76,12 @@
                         </select>
                     </div>
                 </form>
-                @if (Model != null && Model.Any())
-                {
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Sell ID</th>
-                                <th>Quantity Sold</th>
-                                <th>Total Amount</th>
-                                <th>Commission</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var sell in Model)
-                            {
-                                <tr>
-                                    <td>@sell.SaleId</td>
-                                    <td>@sell.QuantitySold</td>
-                                    <td>@sell.TotalAmount.ToString("C")</td>
-                                    <td>@sell.Commission.ToString("C")</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
+                <div id="eventSales">
+                    <!-- Event sales data will be loaded here -->
+                </div>
+                <div id="eventEarnings">
+                    <!-- Partner earnings data will be loaded here -->
+                </div>
             </section>
         </div>
     </div>
@@ -109,10 +90,10 @@
         <div class="col-md-6">
             <section class="card">
                 <h2>Earnings by Partners</h2>
-                <form asp-action="Admin" method="get">
+                <form id="partnerForm">
                     <div>
                         <label for="partnerId">Select Partner:</label>
-                        <select id="partnerId" name="partnerId" onchange="this.form.submit()">
+                        <select id="partnerId" name="partnerId">
                             <option value="">-- Select Partner --</option>
                             @foreach (var partner in ViewBag.Partners)
                             {
@@ -121,44 +102,40 @@
                         </select>
                     </div>
                 </form>
-                @if (Model != null && Model.Any())
-                {
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Sell ID</th>
-                                <th>Quantity Sold</th>
-                                <th>Total Amount</th>
-                                <th>Commission</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var sell in Model)
-                            {
-                                <tr>
-                                    <td>@sell.SaleId</td>
-                                    <td>@sell.QuantitySold</td>
-                                    <td>@sell.TotalAmount.ToString("C")</td>
-                                    <td>@sell.Commission.ToString("C")</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
-                
-            </section>
-        </div>
-
-        <div class="col-md-6">
-            <section class="card">
-                <h2>System Settings</h2>
-                <ul>
-                    <li><a href="#">Manage Users</a></li>
-                    <li><a href="#">Email Notifications</a></li>
-                    <li><a href="#">System Logs</a></li>
-                </ul>
+                <div id="partnerSales">
+                </div>
+                <div id="partnerEarnings">
+                </div>
             </section>
         </div>
     </div>
-
 </div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#eventID').change(function () {
+                var eventId = $(this).val();
+                $.get('@Url.Action("GetSalesByEvent")', { eventID: eventId }, function (data) {
+                    $('#eventSales').html(data);
+                });
+
+                $.get('@Url.Action("EarningsByEvent")', { eventID: eventId }, function (earnings) {
+                    $('#eventEarnings').html('<h3>Total Earnings: ' + earnings.toFixed(2) + '</h3>');
+                });
+            });
+
+            $('#partnerId').change(function () {
+                var partnerId = $(this).val();
+                $.get('@Url.Action("GetSalesByPartner")', { partnerId: partnerId }, function (data) {
+                    $('#partnerSales').html(data);
+                });
+
+                $.get('@Url.Action("GetEarningsByPartner")', { partnerId: partnerId }, function (earnings) {
+                    $('#partnerEarnings').html('<h3>Total Earnings: ' + earnings.toFixed(2) + '</h3>');
+                });
+            });
+        });
+    </script>
+}

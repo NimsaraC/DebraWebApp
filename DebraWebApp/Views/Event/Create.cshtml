@@ -1,5 +1,12 @@
 ﻿@model DebraWebApp.Models.Event
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 <h2>Create New Event</h2>
 
 <form asp-action="Create">

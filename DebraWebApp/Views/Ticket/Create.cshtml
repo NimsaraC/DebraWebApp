@@ -1,5 +1,12 @@
 ﻿@model DebraWebApp.Models.CreateTicketDTO
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 <h2>Create Ticket</h2>
 
 <h4>Ticket</h4>
@@ -31,5 +38,9 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+    </div>
+    <div>
+        <a class="btn btn-primary" href="javascript:history.go(-1)">Cancel</a>
+        <a class="btn btn-primary" href="javascript:history.go(-2)">Go Back</a>
     </div>
 </div>

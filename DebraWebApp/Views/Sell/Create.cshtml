@@ -2,6 +2,13 @@
 
 <h1>Create Sell</h1>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 <form asp-action="Create">
     <div class="form-group">
         <label asp-for="TicketId"></label>
@@ -16,5 +23,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Create</button>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <div>
+        <a class="btn btn-primary" href="javascript:history.go(-2)">Go Back</a>
+    </div>
 </form>

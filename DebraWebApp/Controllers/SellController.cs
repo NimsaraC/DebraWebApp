@@ -58,8 +58,10 @@ namespace DebraWebApp.Controllers
             if (ModelState.IsValid)
             {
                 await _sellService.CreateSellAsync(sell);
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Sell created successfully.";
+                return RedirectToAction("Create");
             }
+
             return View(sell);
         }
 

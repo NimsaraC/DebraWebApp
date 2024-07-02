@@ -1,23 +1,38 @@
-﻿@{
+﻿@model DebraWebApp.Models.PartnerDashboard
+
+@{
     ViewData["Title"] = "Partner Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 
 <div class="container">
     <h1>Welcome to Your Partner Dashboard</h1>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <section class="card">
                 <h2>Events You Manage</h2>
-                <ul>
-                    <li><a href="#">Event 1</a></li>
-                    <li><a href="#">Event 2</a></li>
-                    <li><a href="#">Event 3</a></li>
-                    <!-- List of events dynamically generated -->
-                </ul>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Event Date</th>
+                            <th>Location</th>
+                            <th>Manage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var evt in Model?.ManagedEvents ?? Enumerable.Empty<Event>())
+                        {
+                            <tr>
+                                <td>@evt.EventName</td>
+                                <td>@evt.EventDate.ToShortDateString()</td>
+                                <td>@evt.Location</td>
+                                <td> <a asp-controller="Event" asp-action="Edit" asp-route-id="@evt.EventId" class="btn btn-primary">Edit Event</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </section>
         </div>
 
@@ -27,54 +42,77 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Event Name</th>
+                            <th>Ticket ID</th>
                             <th>Tickets Sold</th>
                             <th>Earnings</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Event 1</td>
-                            <td>50</td>
-                            <td>$500</td>
-                        </tr>
-                        <tr>
-                            <td>Event 2</td>
-                            <td>30</td>
-                            <td>$300</td>
-                        </tr>
-                        <!-- Recent sales data dynamically generated -->
+                        <tr><a asp-controller="Sell" asp-action="Create" class="btn btn-primary">Create sell</a></tr>
+                        @foreach (var sale in Model?.RecentSales ?? Enumerable.Empty<Sell>())
+                        {
+                            <tr>
+                                <td>@sale.TicketId</td>
+                                <td>@sale.QuantitySold</td>
+                                <td>@sale.TotalAmount.ToString("C")</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </section>
         </div>
-    </div>
 
-    <div class="row">
+        <div class="col-md-6">
+            <section class="card">
+                <h2>Event Tickets</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Ivent ID</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><a asp-controller="Ticket" asp-action="Create" class="btn btn-primary">Create Ticket</a></tr>
+                        @foreach (var ticket in Model?.Tickets ?? Enumerable.Empty<Ticket>())
+                        {
+                            <tr>
+                                <td>@ticket.TicketId</td>
+                                <td>@ticket.EventId</td>
+                                <td>@ticket.Price.ToString("C")</td>
+                                <td>@ticket.Quantity</td>
+                                <td>@ticket.Category</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
         <div class="col-md-6">
             <section class="card">
                 <h2>Profile Information</h2>
                 <ul>
-                    <li><strong>Name:</strong> John Doe</li>
-                    <li><strong>Email:</strong> john.doe@example.com</li>
-                    <li><strong>Company:</strong> Your Company Name</li>
-                    <!-- Display partner's profile information -->
+                    <li><strong>Partner Id:</strong> @Model.Partner?.Id</li>
+                    <li><strong>Name:</strong> @Model.Partner?.Name</li>
+                    <li><strong>Email:</strong> @Model.Partner?.Email</li>
+                    <li><strong>Address:</strong> @Model.Partner?.AddressNo , @Model.Partner.Street , @Model.Partner.City</li>
+                    <li><strong>Phone:</strong> @Model.Partner?.PhoneNumber</li>
+                    <!-- Add other profile information properties here -->
                 </ul>
-                <a href="#" class="btn btn-primary">Edit Profile</a>
-            </section>
-        </div>
-
-        <div class="col-md-6">
-            <section class="card">
-                <h2>Upcoming Events</h2>
-                <ul>
-                    <li><a href="#">Event 1</a> - July 15, 2024</li>
-                    <li><a href="#">Event 2</a> - August 5, 2024</li>
-                    <li><a href="#">Event 3</a> - September 10, 2024</li>
-                    <!-- List of upcoming events dynamically generated -->
-                </ul>
+                <a asp-action="Edit" asp-route-id="@Model.Partner.Id" class="btn btn-primary">Edit Profile</a>
             </section>
         </div>
     </div>
 
+    
 </div>
+
+<script>
+    setTimeout(function () {
+        location.reload();
+    }, 10000);
+</script>

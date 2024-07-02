@@ -47,7 +47,9 @@ namespace DebraWebApp.Controllers
             if (ModelState.IsValid)
             {
                 var ticket = await _ticketService.SetTicketDetails(createTicketDTO);
-                return RedirectToAction(nameof(Details), new { id = ticket.TicketId });
+                TempData["SuccessMessage"] = "Event saved successfully.";
+                return RedirectToAction("Create");
+
             }
             return View(createTicketDTO);
         }

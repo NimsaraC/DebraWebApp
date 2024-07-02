@@ -13,7 +13,7 @@ namespace DebraWebApp.Controllers
         private readonly HomeService _homeService;
 
         public HomeController(
-            ILogger<HomeController> logger,SellService sellService,EventService eventService,HomeService homeService)
+            ILogger<HomeController> logger, SellService sellService, EventService eventService, HomeService homeService)
         {
             _logger = logger;
             _sellService = sellService;
@@ -26,7 +26,7 @@ namespace DebraWebApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Admin(int? partnerId, int? eventID)
+        public async Task<IActionResult> Admin()
         {
             try
             {
@@ -39,51 +39,66 @@ namespace DebraWebApp.Controllers
                 var sell = await _sellService.GetAllSellAsync();
                 ViewBag.Sell = sell;
 
-                if (eventID.HasValue)
-                {
-                    var eSales = await _homeService.GetSalesByEventAsync(eventID.Value);
-                    return View(eSales);
-                }
-
-                if (partnerId.HasValue)
-                {
-                    var sales = await _sellService.GetSalesByPartnerAsync(partnerId.Value);
-                    return View(sales);
-                }
-
-                return View(sell);
+                return View();
             }
             catch (Exception ex)
             {
-                // Optionally log the exception
                 return View(new List<Admin>());
             }
         }
 
-
-
-        /*public async Task<IActionResult> Admin(int? partnerId)
+        public async Task<IActionResult> GetSalesByEvent(int eventID)
         {
             try
             {
-                var partners = await _sellService.GetPartnersAsync();
-                ViewBag.Partners = partners.Select(p => new { p.Id, p.Name }).ToList();
-
-                if (partnerId.HasValue)
-                {
-                    var sales = await _sellService.GetSalesByPartnerAsync(partnerId.Value);
-                    return View(sales);
-                }
-                else
-                {
-                    return View(new List<Admin>());
-                }
+                var eSales = await _homeService.GetSalesByEventAsync(eventID);
+                return PartialView("_SalesByEventPartial", eSales);
             }
             catch (Exception ex)
             {
-                return View(new List<Admin>());
+                return PartialView("_SalesByEventPartial", new List<Admin>());
             }
-        }*/
+        }
+
+        public async Task<IActionResult> GetEarningsByPartner(int partnerId)
+        {
+            try
+            {
+                var earnings = await _homeService.GetEarningsByPartnerAsync(partnerId);
+                return Json(earnings);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching earnings by partner ID {PartnerId}", partnerId);
+                return Json(0m);
+            }
+        }
+        public async Task<IActionResult> EarningsByEvent(int eventId)
+        {
+            try
+            {
+                var earnings2 = await _homeService.GetEarningsByEventAsync(eventId);
+                return Json(earnings2);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching earnings by partner ID {PartnerId}", eventId);
+                return Json(0m);
+            }
+        }
+
+        public async Task<IActionResult> GetSalesByPartner(int partnerId)
+        {
+            try
+            {
+                var sales = await _sellService.GetSalesByPartnerAsync(partnerId);
+                return PartialView("_SalesByPartnerPartial", sales);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("_SalesByPartnerPartial", new List<Admin>());
+            }
+        }
 
         public IActionResult Privacy()
         {

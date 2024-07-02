@@ -25,9 +25,12 @@
                 <td>@item.Location</td>
                 <td>@item.PartnerId</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
-                    <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+                    <div class="btn-group" role="group" aria-label="Partner Actions">
+                        <a asp-action="Details" asp-route-id="@item.EventId" class="btn btn-primary">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.EventId" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.EventId" class="btn btn-danger"
+                           onclick="return confirm('Are you sure you want to delete this Ticket?')">Delete</a>
+                    </div>
                 </td>
             </tr>
         }

@@ -28,6 +28,16 @@ namespace DebraWebApp.Models
             }
             return await response.Content.ReadFromJsonAsync<IEnumerable<Admin>>();
         }
+        public async Task<IEnumerable<Sell>> GetSalesBySPartnerAsync(int partnerId)
+        {
+            var response = await _httpClient.GetAsync($"api/sell/partner/{partnerId}");
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError($"Error fetching sales for partner {partnerId}. Status Code: {response.StatusCode}");
+                return new List<Sell>();
+            }
+            return await response.Content.ReadFromJsonAsync<IEnumerable<Sell>>();
+        }
 
         public async Task<IEnumerable<Partner>> GetPartnersAsync()
         {

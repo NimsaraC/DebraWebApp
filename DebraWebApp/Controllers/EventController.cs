@@ -46,7 +46,8 @@ namespace DebraWebApp.Controllers
             if (ModelState.IsValid)
             {
                 await _eventService.CreateEventAsync(eventModel);
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Event saved successfully.";
+                return RedirectToAction("Create");
             }
             return View(eventModel);
         }
@@ -71,8 +72,11 @@ namespace DebraWebApp.Controllers
             }
 
             await _eventService.UpdateEventAsync(id, eventModel);
-            return RedirectToAction(nameof(Index));
+            TempData["SuccessMessage"] = "Event saved successfully.";
+
+            return RedirectToAction("Edit", new { id = id });
         }
+
 
         [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
