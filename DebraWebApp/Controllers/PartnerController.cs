@@ -141,7 +141,7 @@ namespace DebraWebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _partnerService.DeletePartnerAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Delete));
         }
         [HttpGet]
         public IActionResult Login()

@@ -63,30 +63,6 @@ namespace DebraWebApp.Models
                 return 0m;
             }
         }
-        /*public async Task<(bool IsSuccess, string ErrorMessage)> AuthenticatePartnerAsync(string username, string password)
-        {
-            try
-            {
-                string url = $"api/Admin/authenticate?username={Uri.EscapeDataString(username)}&password={Uri.EscapeDataString(password)}";
-
-                var response = await _httpClient.PostAsync(url, null);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    _logger.LogInformation("Authentication request succeeded for username: {username}", username);
-                    return (true, null);
-                }
-
-                var errorMessage = await response.Content.ReadAsStringAsync();
-                _logger.LogError("Authentication request failed for username: {username} with message: {errorMessage}", username, errorMessage);
-                return (false, errorMessage);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Exception occurred during authentication for username: {username}", username);
-                return (false, "Exception occurred while trying to authenticate.");
-            }
-        }*/
 
         public async Task<(bool IsSuccess, string ErrorMessage)> AuthenticatePartnerAsync(string username, string password)
         {

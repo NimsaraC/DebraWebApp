@@ -1,35 +1,41 @@
 ﻿@model IEnumerable<DebraWebApp.Models.Event>
 
-<h2>Events</h2>
+@{
+    ViewData["Title"] = "Events";
+}
 
-<p>
-    <a asp-action="Create">Create New</a>
+<h2 class="text-center mt-4">@ViewData["Title"]</h2>
+
+<p class="text-end">
+    <a asp-action="Create" class="btn btn-success">Create New Event</a>
 </p>
 
-<table class="table">
-    <thead>
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
         <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Location</th>
-            <th>PartnerId</th>
-            <th></th>
+            <th scope="col">Event Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Location</th>
+            <th scope="col">Partner Id</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
+                <td>@item.EventId</td>
                 <td>@item.EventName</td>
-                <td>@item.EventDate</td>
+                <td>@item.EventDate.ToString("yyyy-MM-dd")</td>
                 <td>@item.Location</td>
                 <td>@item.PartnerId</td>
                 <td>
-                    <div class="btn-group" role="group" aria-label="Partner Actions">
-                        <a asp-action="Details" asp-route-id="@item.EventId" class="btn btn-primary">Edit</a>
+                    <div class="btn-group" role="group" aria-label="Event Actions">
+                        <a asp-action="Details" asp-route-id="@item.EventId" class="btn btn-info">Details</a>
                         <a asp-action="Edit" asp-route-id="@item.EventId" class="btn btn-warning">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.EventId" class="btn btn-danger"
-                           onclick="return confirm('Are you sure you want to delete this Ticket?')">Delete</a>
+                           onclick="return confirm('Are you sure you want to delete this Event?')">Delete</a>
                     </div>
                 </td>
             </tr>

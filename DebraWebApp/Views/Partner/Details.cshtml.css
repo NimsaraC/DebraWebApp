@@ -1,0 +1,47 @@
+﻿/* Custom styles for Partner Details page */
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h2 {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.card {
+    border: none;
+}
+
+    .card .btn-primary {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+    }
+
+        .card .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+dl {
+    font-size: 0.875rem;
+}
+
+    dl dt {
+        font-weight: 600;
+    }
+
+    dl dd {
+        margin-bottom: 10px;
+    }
+
+@media (max-width: 576px) {
+    .col-sm-3, .col-sm-9 {
+        width: 100%;
+        display: block;
+    }
+}

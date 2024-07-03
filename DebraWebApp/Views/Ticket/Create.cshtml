@@ -1,5 +1,9 @@
 ﻿@model DebraWebApp.Models.CreateTicketDTO
 
+@{
+    ViewData["Title"] = "Create Ticket";
+}
+
 @if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success">
@@ -7,40 +11,43 @@
     </div>
 }
 
-<h2>Create Ticket</h2>
+<h2 class="text-center mt-4">@ViewData["Title"]</h2>
 
-<h4>Ticket</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div class="form-group">
-                <label asp-for="EventId" class="control-label"></label>
-                <input asp-for="EventId" class="form-control" />
-                <span asp-validation-for="EventId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-    <div>
-        <a class="btn btn-primary" href="javascript:history.go(-1)">Cancel</a>
-        <a class="btn btn-primary" href="javascript:history.go(-2)">Go Back</a>
-    </div>
+<div class="card shadow-lg p-4 mb-5 bg-white rounded" style="max-width: 600px; margin: auto;">
+    <h4>Ticket</h4>
+    <hr />
+    <form asp-action="Create">
+        <div class="form-group mb-3">
+            <label asp-for="EventId" class="form-label"></label>
+            <input asp-for="EventId" class="form-control" />
+            <span asp-validation-for="EventId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Price" class="form-label"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Quantity" class="form-label"></label>
+            <input asp-for="Quantity" class="form-control" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Category" class="form-label"></label>
+            <input asp-for="Category" class="form-control" />
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+
+        <div class="form-group d-grid gap-2">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<div class="text-center mt-3">
+    <a class="btn btn-secondary" href="javascript:history.go(-1)">Cancel</a>
+    <a class="btn btn-secondary ms-2" href="javascript:history.go(-2)">Go Back</a>
 </div>

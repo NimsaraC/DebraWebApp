@@ -28,7 +28,12 @@
                                 <td>@evt.EventName</td>
                                 <td>@evt.EventDate.ToShortDateString()</td>
                                 <td>@evt.Location</td>
-                                <td> <a asp-controller="Event" asp-action="Edit" asp-route-id="@evt.EventId" class="btn btn-primary">Edit Event</a></td>
+                                <td> <a asp-controller="Event" asp-action="Details" asp-route-id="@evt.EventId" class="btn btn-primary">Event Details</a>
+                                <a asp-controller="Event" asp-action="Edit" asp-route-id="@evt.EventId" class="btn btn-warning">Edit Event</a>
+                                
+                                    <a asp-action="Delete" asp-route-id="@evt.EventId" class="btn btn-danger"
+                                       onclick="return confirm('Are you sure you want to delete this Event?')">Delete</a>
+                                </td>
                             </tr>
                         }
                     </tbody>

@@ -72,7 +72,7 @@ namespace DebraWebApp.Models
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("api/sell", sell);
+                var response = await _httpClient.PostAsJsonAsync("api/Sell/sell", sell);
                 response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException e)

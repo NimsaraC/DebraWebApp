@@ -1,0 +1,57 @@
+﻿/* Custom styles for Partners page */
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h2 {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.btn {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+    .table th,
+    .table td {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .table tbody + tbody {
+        border-top: 2px solid #dee2e6;
+    }
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}

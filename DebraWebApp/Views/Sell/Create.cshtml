@@ -1,6 +1,6 @@
 ﻿@model DebraWebApp.Models.Sell
 
-<h1>Create Sell</h1>
+<h1 class="mt-4">Create Sell</h1>
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -9,21 +9,27 @@
     </div>
 }
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="TicketId"></label>
-        <input asp-for="TicketId" class="form-control" />
-        <span asp-validation-for="TicketId" class="text-danger"></span>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4 mb-5 bg-white rounded">
+                <form asp-action="Create">
+                    <div class="form-group">
+                        <label asp-for="TicketId" class="control-label">Ticket ID</label>
+                        <input asp-for="TicketId" class="form-control" />
+                        <span asp-validation-for="TicketId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="QuantitySold" class="control-label">Quantity Sold</label>
+                        <input asp-for="QuantitySold" class="form-control" />
+                        <span asp-validation-for="QuantitySold" class="text-danger"></span>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <a class="btn btn-secondary ml-2" href="javascript:history.go(-2)">Go Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="QuantitySold"></label>
-        <input asp-for="QuantitySold" class="form-control" />
-        <span asp-validation-for="QuantitySold" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Create</button>
-    <div>
-        <a class="btn btn-primary" href="javascript:history.go(-2)">Go Back</a>
-    </div>
-</form>
+</div>
